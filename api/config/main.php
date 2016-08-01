@@ -11,7 +11,12 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'api\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'v1' => [
+            'basePath' => '@app/modules/v1',
+            'class' => 'api\modules\v1\Module',
+        ],
+    ],
     'components' => [
         'user' => [
             'identityClass' => 'common\models\User',
@@ -40,18 +45,19 @@ return [
                
         'urlManager' => [
                 'enablePrettyUrl' => true,
-                'showScriptName' => false,
                 'enableStrictParsing' => true,
+                'showScriptName' => false,
                 'rules' => [
-                        '<controller:\w+>/<id:\d+>' => '<controller>/view',
-                        '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
-                        '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
-                        ['class' => 'yii\rest\UrlRule', 'controller' => ['user', 'news']],
+                        // '<controller:\w+>/<id:\d+>' => '<controller>/view',
+                        // '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                        // '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                        ['class' => 'yii\rest\UrlRule', 'controller' => ['user', 'news', 'v1/country', 'v1/good', 'v1/user']],
                 ],
         ],
         'request' => [
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
+                'text/json' => 'yii\web\JsonParser',
             ]
         ],
     ],
